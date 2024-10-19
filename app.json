@@ -12,7 +12,8 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "googleServicesFile": "./GoogleService-Info.plist"
     },
     "android": {
       "adaptiveIcon": {
@@ -22,6 +23,25 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./src/assets/fonts/Gabarito-Black.ttf",
+            "./src/assets/fonts/Gabarito-Bold.ttf",
+            "./src/assets/fonts/Gabarito-ExtraBold.ttf",
+            "./src/assets/fonts/Gabarito-Medium.ttf",
+            "./src/assets/fonts/Gabarito-Regular.ttf",
+            "./src/assets/fonts/Gabarito-SemiBold.ttf",
+            "./src/assets/fonts/Gabarito-VariableFont_wght.ttf",
+            "./src/assets/fonts/LibreBaskerville-Bold.ttf",
+            "./src/assets/fonts/LibreBaskerville-Italic.ttf",
+            "./src/assets/fonts/LibreBaskerville-Regular.ttf"
+          ]
+        }
+      ]
+    ]
   }
 }
