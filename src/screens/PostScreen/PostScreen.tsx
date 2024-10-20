@@ -8,17 +8,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { PrismLight as SyntaxHighlighter } from "react-syntax-highlighter";
 import { atomDark } from "react-syntax-highlighter/dist/esm/styles/prism"; // Theme for syntax highlighting
 import BackButtonSvg from "../../../src/assets/svgs/back-button.svg"; // Adjust the path to your SVG file
-
-interface Post {
-  id: string;
-  title: string;
-  content: string;
-  authorName: string;
-  category: string;
-  createdAt: Timestamp;
-  imageUrl: string;
-  updatedAt?: Timestamp;
-}
+import { markdownStyles } from "../../utils/constants";
+import { Post } from "../../utils/props";
 
 interface PostScreenProps {
   route: RouteProp<{ params: { post: Post } }, "params">; // Use appropriate type for your post
@@ -134,30 +125,5 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
 });
-
-const markdownStyles = {
-  body: {
-    fontFamily: "LibreBaskerville-Regular",
-    fontSize: 16,
-  },
-  heading1: {
-    fontSize: 32,
-    fontFamily: "LibreBaskerville-Bold",
-    marginBottom: 10,
-  },
-  heading2: {
-    fontSize: 24,
-    fontFamily: "LibreBaskerville-Bold",
-    marginBottom: 8,
-    marginTop: 30,
-  },
-  paragraph: {
-    marginBottom: 30,
-  },
-  bullet_list: {
-    // marginTop: 10,
-    // marginBottom: 30,
-  },
-};
 
 export default PostScreen;

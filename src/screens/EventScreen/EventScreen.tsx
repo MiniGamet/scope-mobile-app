@@ -6,15 +6,8 @@ import Markdown from "react-native-markdown-display";
 import { ScrollView } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import BackButtonSvg from "../../../src/assets/svgs/back-button.svg"; // Adjust the path to your SVG file
+import { Event } from "../../utils/props";
 // import { forHorizontalIOS } from "@react-navigation/stack/lib/typescript/src/TransitionConfigs/CardStyleInterpolators";
-
-interface Event {
-  id: string;
-  title: string;
-  date: Timestamp;
-  imageUrl: string;
-  description: string;
-}
 
 interface EventScreenProps {
   route: RouteProp<{ params: { event: Event } }, "params">; // Use appropriate type for your event

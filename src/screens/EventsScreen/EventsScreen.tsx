@@ -6,14 +6,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { FlatList } from "react-native-gesture-handler";
 import Navbar from "../../_components/Navbar";
 import EventCard from "../../_components/EventCard";
-
-interface Event {
-  id: string;
-  title: string;
-  date: Timestamp;
-  imageUrl: string;
-  description: string;
-}
+import { Event } from "../../utils/props";
 
 const EventsScreen = ({ navigation }) => {
   const [events, setEvents] = useState<Event[]>([]);

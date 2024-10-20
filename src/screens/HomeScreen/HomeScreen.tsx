@@ -14,19 +14,9 @@ import { db } from "../../firebase/config";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import Navbar from "../../_components/Navbar";
+import { Post } from "../../utils/props";
 
 SplashScreen.preventAutoHideAsync();
-
-interface Post {
-  id: string;
-  title: string;
-  content: string;
-  authorName: string;
-  category: string;
-  createdAt: Timestamp;
-  imageUrl: string;
-  updatedAt?: Timestamp;
-}
 
 const HomeScreen = ({ navigation }) => {
   const [posts, setPosts] = useState<Post[]>([]);

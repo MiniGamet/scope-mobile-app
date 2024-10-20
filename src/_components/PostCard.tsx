@@ -1,18 +1,10 @@
 import React from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 import { Timestamp } from "firebase/firestore";
+import { Post } from "../utils/props";
 
 interface PostCardProps {
-  item: {
-    id: string;
-    title: string;
-    content: string;
-    authorName: string;
-    category: string;
-    createdAt: Timestamp;
-    imageUrl: string;
-    updatedAt?: Timestamp;
-  };
+  item: Post;
 }
 
 const PostCard: React.FC<PostCardProps> = ({ item }) => {

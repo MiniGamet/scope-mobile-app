@@ -1,15 +1,10 @@
 import React from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 import { Timestamp } from "firebase/firestore";
+import { Event } from "../utils/props";
 
 interface EventCardProps {
-  item: {
-    id: string;
-    title: string;
-    date: Timestamp;
-    imageUrl: string;
-    description: string;
-  };
+  item: Event;
 }
 
 const EventCard: React.FC<EventCardProps> = ({ item }) => {
