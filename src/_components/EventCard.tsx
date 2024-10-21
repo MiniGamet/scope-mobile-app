@@ -53,16 +53,19 @@ const styles = StyleSheet.create({
     // backgroundColor: "blue",
     maxWidth: "100%",
     width: 380,
-    height: "100%",
-    // paddingVertical: 15,
+    maxHeight: "100%",
+    marginBottom: 15,
   },
   textContainer: {
     flex: 1,
+    gap: 5,
   },
   title: {
     textTransform: "capitalize",
     fontFamily: "Gabarito-SemiBold",
-    fontSize: 28,
+    fontSize: 24,
+    maxWidth: "100%",
+    flexWrap: "wrap",
   },
   info: {
     fontFamily: "Gabarito-Medium",

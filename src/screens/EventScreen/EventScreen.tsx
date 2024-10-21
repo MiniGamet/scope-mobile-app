@@ -7,6 +7,9 @@ import { ScrollView } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import BackButtonSvg from "../../../src/assets/svgs/back-button.svg"; // Adjust the path to your SVG file
 import { Event } from "../../utils/props";
+import { markdownStyles } from "../../utils/constants";
+import SyntaxHighlighter from "react-syntax-highlighter";
+import { atomDark } from "react-syntax-highlighter/dist/esm/styles/prism"; // Theme for syntax highlighting
 // import { forHorizontalIOS } from "@react-navigation/stack/lib/typescript/src/TransitionConfigs/CardStyleInterpolators";
 
 interface EventScreenProps {
@@ -26,72 +29,24 @@ const EventScreen: React.FC<EventScreenProps> = ({ route }) => {
     minute: "numeric",
   });
 
-  const markdown = `# 🎉 [Event Name]
-
-**Date:** [Event Date]  
-**Time:** [Start Time] - [End Time]  
-**Location:** [Event Location]  
-**Organizer:** [Organizer Name or Organization]
-
----
-
-## Description
-
-Join us for [brief description of the event, e.g., "an exciting day of learning, networking, and fun!"] The event will feature [highlights of the event, e.g., "guest speakers, interactive sessions, and plenty of opportunities to connect with others in the community."] 
-
----
-
-## Agenda
-
-| Time        | Activity                          |
-|-------------|-----------------------------------|
-| [Start Time] | [Activity 1]                     |
-| [Time]      | [Activity 2]                     |
-| [Time]      | [Activity 3]                     |
-
----
-
-## Speakers
-
-- **[Speaker Name 1]**  
-  *[Title/Role, e.g., "CEO of Company"]*  
-  [Short bio or description of the speaker]
-
-- **[Speaker Name 2]**  
-  *[Title/Role, e.g., "Expert in Industry"]*  
-  [Short bio or description of the speaker]
-
----
-
-## How to Register
-
-Please [register here](URL-to-registration-page) to secure your spot.
-
-\`\`\` js
-var foo = function (bar) {
-  return bar++;
-};
-
-console.log(foo(5));
-
-\`\`\`
-
----
-
-> Imagination is more important than knowledge
-
----
-
-## Contact Information
-
-For more information, please contact:  
-**Email:** [contact@example.com]  
-**Phone:** [Phone Number]  
-
----
-
-We hope to see you there! 🎊
-`;
+  const renderMarkdown = (content: string) => {
+    return (
+      <Markdown
+        style={markdownStyles}
+        rules={{
+          code_block: (node, children, parent, styles) => (
+            <ScrollView horizontal>
+              <SyntaxHighlighter language="javascript" style={atomDark}>
+                {node.content}
+              </SyntaxHighlighter>
+            </ScrollView>
+          ),
+        }}
+      >
+        {content}
+      </Markdown>
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -110,7 +65,7 @@ We hope to see you there! 🎊
           <Text style={styles.title}>{event.title}</Text>
           <Text style={styles.authorAndDate}>{formattedDate}</Text>
 
-          <Markdown style={markdownStyles}>{markdown}</Markdown>
+          {renderMarkdown(event.description)}
         </ScrollView>
       </View>
     </View>
@@ -171,26 +126,5 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
 });
-
-const markdownStyles = {
-  body: {
-    fontFamily: "LibreBaskerville-Regular",
-    fontSize: 16,
-  },
-  heading1: {
-    fontSize: 20,
-    fontFamily: "LibreBaskerville-bold",
-    marginBottom: 10,
-  },
-  heading2: {
-    fontSize: 20,
-    fontWeight: "LibreBaskerville-bold",
-    marginBottom: 8,
-  },
-  paragraph: {
-    marginBottom: 50,
-    lineHeight: 20,
-  },
-};
 
 export default EventScreen;
