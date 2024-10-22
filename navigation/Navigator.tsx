@@ -5,6 +5,7 @@ import HomeScreen from "../src/screens/HomeScreen/HomeScreen";
 import PostScreen from "../src/screens/PostScreen/PostScreen";
 import EventsScreen from "../src/screens/EventsScreen/EventsScreen";
 import EventScreen from "../src/screens/EventScreen/EventScreen";
+import SavesScreen from "../src/screens/SavesScreen/SavesScreen";
 
 const Stack = createStackNavigator();
 
@@ -36,6 +37,11 @@ export default function Navigator() {
         <Stack.Screen
           name="Event"
           component={EventScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Saves"
+          component={SavesScreen}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

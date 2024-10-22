@@ -7,7 +7,7 @@ export const markdownStyles = StyleSheet.create({
     lineHeight: 25,
   },
   heading1: {
-    fontSize: 32,
+    fontSize: 28,
     fontFamily: "LibreBaskerville-Bold",
     marginBottom: 25,
     lineHeight: 35,

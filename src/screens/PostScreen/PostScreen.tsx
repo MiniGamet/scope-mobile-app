@@ -39,7 +39,7 @@ const PostScreen: React.FC<PostScreenProps> = ({ route }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} key={post.id}>
       <Image
         style={styles.image}
         source={{ uri: post.imageUrl }} // Display the post image
