@@ -53,14 +53,14 @@ const Navbar = () => {
       <TouchableOpacity
         style={[
           styles.navButton,
-          isActive("Saved") && styles.activeButton, // Highlight active button
+          isActive("Saves") && styles.activeButton, // Highlight active button
         ]}
-        onPress={() => handleNavigate("Saved")}
+        onPress={() => handleNavigate("Saves")}
       >
         <SaveIconSvg
           width={30}
           height={30}
-          color={isActive("Saved") ? "#fff" : "#000"}
+          color={isActive("Saves") ? "#fff" : "#000"}
         />
       </TouchableOpacity>
     </View>

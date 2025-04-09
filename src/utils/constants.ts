@@ -7,22 +7,37 @@ export const markdownStyles = StyleSheet.create({
     lineHeight: 25,
   },
   heading1: {
-    fontSize: 32,
-    fontFamily: "LibreBaskerville-Bold",
+    fontSize: 28,
+    marginTop: 35,
     marginBottom: 25,
     lineHeight: 35,
   },
   heading2: {
     fontSize: 24,
-    fontFamily: "LibreBaskerville-Bold",
-    marginVertical: 30,
-    marginBottom: 8,
+    marginTop: 30,
+    marginBottom: 20,
     lineHeight: 35,
   },
-  heading3: {},
-  heading4: {},
-  heading5: {},
-  heading6: {},
+  heading3: {
+    fontSize: 22,
+    marginTop: 25,
+    marginBottom: 15,
+  },
+  heading4: {
+    fontSize: 20,
+    marginTop: 20,
+    marginBottom: 10,
+  },
+  heading5: {
+    fontSize: 18,
+    marginTop: 20,
+    marginBottom: 10,
+  },
+  heading6: {
+    fontSize: 14,
+    marginTop: 20,
+    marginBottom: 10,
+  },
   hr: {
     marginVertical: 30,
   },
@@ -53,6 +68,6 @@ export const markdownStyles = StyleSheet.create({
     marginVertical: 30,
   },
   paragraph: {
-    marginVertical: 30,
+    marginVertical: 15,
   },
 });

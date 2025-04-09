@@ -9,7 +9,12 @@
     "web": "expo start --web"
   },
   "dependencies": {
+<<<<<<< HEAD
     "@expo/config-plugins": "~9.0.0",
+=======
+    "@expo/config-plugins": "^8.0.10",
+    "@react-native-async-storage/async-storage": "^1.24.0",
+>>>>>>> e71881c88bf5eb0b06b257699f18e05089ab6842
     "@react-native-firebase/app": "^21.0.0",
     "@react-native-firebase/firestore": "^21.0.0",
     "@react-native-firebase/storage": "^21.0.0",
