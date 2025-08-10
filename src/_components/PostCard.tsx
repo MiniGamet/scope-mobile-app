@@ -15,7 +15,7 @@ const PostCard: React.FC<PostCardProps> = ({ item }) => {
   });
 
   return (
-    <View style={styles.container}>
+    <View key={item.id} style={styles.container}>
       <View>
         <View>
           <Image

@@ -86,6 +86,7 @@ const HomeScreen = ({ navigation }) => {
 
   const renderPosts = ({ item }: { item: Post }) => (
     <TouchableOpacity
+      key={item.id}
       onPress={() => navigation.navigate("Post", { post: item })}
     >
       <PostCard item={item} />

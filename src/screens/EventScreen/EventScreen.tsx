@@ -113,8 +113,6 @@ const EventScreen: React.FC<EventScreenProps> = ({ route }) => {
     checkIfSaved();
   }, []);
 
-  console.log(event.description);
-
   return (
     <View style={styles.container}>
       <Image
