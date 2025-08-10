@@ -6,10 +6,17 @@ import {
   StyleSheet,
   SafeAreaView,
   TouchableOpacity,
+  TextInput,
   Alert,
 } from "react-native";
 import PostCard from "../../_components/PostCard";
-import { getDocs, collection, Timestamp } from "firebase/firestore";
+import {
+  getDocs,
+  collection,
+  query,
+  orderBy,
+  Timestamp,
+} from "firebase/firestore";
 import { db } from "../../firebase/config";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
@@ -18,42 +25,69 @@ import { Post } from "../../utils/props";
 
 SplashScreen.preventAutoHideAsync();
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = ({ navigation }: { navigation: any }) => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [filteredPosts, setFilteredPosts] = useState<Post[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
-  // Fetch posts from Firestore
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const querySnapshot = await getDocs(collection(db, "posts"));
-        const fetchedPosts = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        })) as Post[];
+  // <-- NEW: refreshing state for pull-to-refresh
+  const [refreshing, setRefreshing] = useState(false);
 
-        setPosts(fetchedPosts);
-        setFilteredPosts(fetchedPosts); // Initially show all posts
-      } catch (error) {
-        console.error("Error fetching posts:", error);
-      }
-    };
+  // Extract fetch logic so we can call it on mount and on refresh.
+  const fetchPosts = useCallback(async () => {
+    try {
+      // Optional: use orderBy to get newest posts first
+      const q = query(collection(db, "posts"), orderBy("createdAt", "desc"));
+      const querySnapshot = await getDocs(q);
 
-    fetchPosts();
+      const fetchedPosts = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      })) as Post[];
+
+      setPosts(fetchedPosts);
+      // Note: filteredPosts will be recalculated by the effect below
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+      Alert.alert("Error", "Couldn't refresh posts. Try again later.");
+    }
   }, []);
+
+  // Fetch posts on mount
+  useEffect(() => {
+    fetchPosts();
+  }, [fetchPosts]);
+
+  // Pull-to-refresh handler
+  const handleRefresh = useCallback(async () => {
+    setRefreshing(true);
+    await fetchPosts();
+    setRefreshing(false);
+  }, [fetchPosts]);
 
   // Apply category filter
   useEffect(() => {
+    let results = posts;
+
+    // Filter by category first
     if (selectedCategory) {
-      const filtered = posts.filter(
+      results = results.filter(
         (post) => post.category.toLowerCase() === selectedCategory.toLowerCase()
       );
-      setFilteredPosts(filtered);
-    } else {
-      setFilteredPosts(posts); // Show all posts if no category is selected
     }
-  }, [selectedCategory, posts]);
+
+    // Then apply search query
+    if (searchQuery.trim() !== "") {
+      results = results.filter(
+        (post) =>
+          post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          post.content.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
+    setFilteredPosts(results);
+  }, [selectedCategory, searchQuery, posts]);
 
   const [loaded, error] = useFonts({
     "Gabarito-Bold": require("../../../src/assets/fonts/Gabarito-Bold.ttf"),
@@ -110,7 +144,13 @@ const HomeScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container} onLayout={handleOnLayout}>
       <View style={styles.categoryContainer}>
-        <Text style={styles.categoryTitle}>explore by category</Text>
+        <Text style={styles.categoryTitle}>explore</Text>
+        <TextInput
+          style={styles.searchBar}
+          placeholder="search..."
+          value={searchQuery}
+          onChangeText={setSearchQuery}
+        />
         <View style={styles.categories}>
           <FlatList
             data={categories}
@@ -126,6 +166,8 @@ const HomeScreen = ({ navigation }) => {
         data={filteredPosts}
         keyExtractor={(item) => item.id}
         renderItem={renderPosts}
+        refreshing={refreshing}
+        onRefresh={handleRefresh}
       />
 
       <Navbar />
@@ -143,6 +185,7 @@ const styles = StyleSheet.create({
   categoryContainer: {
     width: "100%",
     gap: 10,
+    marginTop: 20,
   },
   categoryTitle: {
     textTransform: "lowercase",
@@ -170,6 +213,21 @@ const styles = StyleSheet.create({
   categoryText: {
     fontFamily: "Gabarito-Medium",
     fontSize: 18,
+  },
+  searchBar: {
+    backgroundColor: "#e0e0e0ff",
+    borderRadius: 16,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    marginHorizontal: 20,
+    fontSize: 18,
+    marginBottom: 10,
+    display: "flex",
+    flexDirection: "row",
+    gap: 20,
+    width: "80%",
+    paddingLeft: 30,
+    fontFamily: "Gabarito-Regular",
   },
 });
 

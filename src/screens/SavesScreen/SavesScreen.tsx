@@ -13,7 +13,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Navbar from "../../_components/Navbar";
 import { Timestamp } from "firebase/firestore";
 
-const SavesScreen: React.FC = ({ navigation }) => {
+const SavesScreen = ({ navigation }: { navigation: any }) => {
   const [savedEvents, setSavedEvents] = useState<Event[]>([]);
 
   // Load saved events when the screen is mounted
@@ -85,6 +85,7 @@ const styles = StyleSheet.create({
     // justifyContent: "center",
     // alignItems: "center",
     gap: 20,
+    marginTop: 20,
   },
   savesTitleContainer: {
     width: "100%",

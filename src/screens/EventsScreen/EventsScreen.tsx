@@ -8,7 +8,7 @@ import Navbar from "../../_components/Navbar";
 import EventCard from "../../_components/EventCard";
 import { Event } from "../../utils/props";
 
-const EventsScreen = ({ navigation }) => {
+const EventsScreen = ({ navigation }: { navigation: any }) => {
   const [events, setEvents] = useState<Event[]>([]);
 
   // Fetch events from Firestore
@@ -62,6 +62,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     gap: 20,
+    marginTop: 20,
   },
   eventTitleContainer: {
     width: "100%",
